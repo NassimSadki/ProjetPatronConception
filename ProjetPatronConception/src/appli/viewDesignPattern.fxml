@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0"
+	prefWidth="445.0" xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="appli.MainController">
+	<children>
+		<TextField fx:id="libelle" layoutX="186.0" layoutY="177.0" />
+		<TextField fx:id="heureDebut" layoutX="186.0"
+			layoutY="209.0" />
+		<TextField fx:id="heureFin" layoutX="186.0" layoutY="244.0" />
+		<Label layoutX="131.0" layoutY="181.0" text="Libellé : " />
+		<Label layoutX="99.0" layoutY="213.0" text="Heure début : " />
+		<Label layoutX="116.0" layoutY="248.0" text="Heure fin : " />
+		<Label layoutX="116.0" layoutY="321.0" text="Trier la sortie : " />
+		<RadioButton layoutX="110.0" layoutY="339.0"
+			mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0"
+			text="par ID">
+			<toggleGroup>
+				<ToggleGroup fx:id="triSortie" />
+			</toggleGroup>
+		</RadioButton>
+		<RadioButton layoutX="110.0" layoutY="365.0"
+			mnemonicParsing="false" text="par Nom" toggleGroup="$triSortie" />
+		<Label layoutX="251.0" layoutY="320.0" prefHeight="17.0"
+			prefWidth="112.0" text="Générer, en sortie : " />
+		<Button layoutX="33.0" layoutY="67.0" onAction="#sayHelloWorld"
+			prefHeight="47.0" prefWidth="86.0"
+			text="Selectionner &#10;un fichier...&#10;" />
+		<Line endX="133.5" layoutX="286.0" layoutY="155.0"
+			startX="-253.0" />
+		<Line endX="134.5" layoutX="286.0" layoutY="301.0"
+			startX="-253.0" />
+		<Line endX="136.5" layoutX="286.0" layoutY="427.0"
+			startX="-253.0" />
+		<Text layoutX="178.0" layoutY="83.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Date : " />
+		<Text layoutX="149.0" layoutY="108.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Heure min : " />
+		<Text layoutX="148.0" layoutY="136.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Heure max : " />
+		<Button layoutX="176.0" layoutY="450.0" mnemonicParsing="false"
+			onAction="#genererSortie" text="Générer la sortie" />
+		<CheckBox fx:id="sansId" layoutX="252.0" layoutY="338.0"
+			mnemonicParsing="false" text="sans Nom" />
+		<CheckBox fx:id="sansNom" layoutX="252.0" layoutY="366.0"
+			mnemonicParsing="false" text="sans ID" />
+		<CheckBox fx:id="sansPlanning" layoutX="252.0"
+			layoutY="394.0" mnemonicParsing="false" text="sans Planning" />
+		<Line endX="-0.5" endY="58.0" layoutX="139.0" layoutY="83.0"
+			startX="-0.5" startY="-43.0" />
+		<Text layoutX="168.0" layoutY="57.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Fichier :" wrappingWidth="43.14843699336052" />
+		<Text fx:id="nomFichier" layoutX="219.0" layoutY="54.0"
+			strokeType="OUTSIDE" strokeWidth="0.0"
+			wrappingWidth="190.14843699336052" />
+		<Text fx:id="dateFichier" layoutX="219.0" layoutY="82.0"
+			strokeType="OUTSIDE" strokeWidth="0.0"
+			wrappingWidth="190.14843699336052" />
+		<Text fx:id="heureMinFichier" layoutX="219.0" layoutY="109.0"
+			strokeType="OUTSIDE" strokeWidth="0.0"
+			wrappingWidth="190.14843699336052" />
+		<Text fx:id="heureMaxFichier" layoutX="218.0" layoutY="136.0"
+			strokeType="OUTSIDE" strokeWidth="0.0"
+			wrappingWidth="190.14843699336052" />
+	</children>
+</Pane>
