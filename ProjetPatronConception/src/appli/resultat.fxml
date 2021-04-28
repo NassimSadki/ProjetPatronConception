@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+
+
+<Pane layoutX="-18.0" layoutY="-20.0" prefHeight="169.0"
+	prefWidth="376.0" xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/8.0.171"
+	fx:controller="appli.ResultatController">
+	<children>
+		<Label layoutX="46.0" layoutY="59.0" text="Fichier créé :" />
+		<Text fx:id="fichierCree" layoutX="119.0" layoutY="72.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" wrappingWidth="253.13671875" />
+		<Button layoutX="112.0" layoutY="122.0" mnemonicParsing="false"
+			text="Quitter" onAction="#quitter"/>
+		<Button layoutX="200.0" layoutY="122.0" mnemonicParsing="false"
+			text="Recommencer" onAction="#recommencer" />
+		<Line endX="217.0" layoutX="139.0" layoutY="96.0" startX="-100.0" />
+	</children>
+</Pane>
+

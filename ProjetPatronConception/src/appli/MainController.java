@@ -39,10 +39,12 @@ public class MainController {
     private CheckBox sansNom;
     @FXML
     private CheckBox sansPlanning;
+ 
     
-    private TEAMSProcessor teamsProcessor;
+    static TEAMSProcessor teamsProcessor;
     private File selectedFile;
     private ParcoursCSV parcours;
+    static File outputFile;
     
     public void sayHelloWorld(ActionEvent actionEvent) {
 
@@ -103,15 +105,14 @@ public class MainController {
         fileChooser.getExtensionFilters().add(extFilter);
 
         //Show save file dialog
-        File outputFile = fileChooser.showSaveDialog(Main.getPrimaryStage());
+        outputFile = fileChooser.showSaveDialog(Main.getPrimaryStage());
     	
         teamsProcessor = new TEAMSProcessor(selectedFile, outputFile, test1, test2
         		,libelle.getText(), sortBy);
 
-       /*var allpeople = teamsProcessor.get_allpeople();
-       for (People people : allpeople) {
-       }*/
-    	
     	teamsProcessor.toHTMLFile();
+    	ResultatController r = new ResultatController();
+    	r.afficherResultat();
     }
+    
 }

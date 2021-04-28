@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class ParcoursCSV {
 	
     private LinkedList<String> _attlist = null;
-    private ArrayList<LocalDateTime> test;
+    private ArrayList<LocalDateTime> listeDate;
     private LocalDateTime heureMin = null;
     private LocalDateTime heureMax = null;
     private String date = null;
@@ -31,7 +31,7 @@ public class ParcoursCSV {
 	private void processList() {
         if (this._attlist != null) {
         	
-        	this.test = new ArrayList<LocalDateTime>();
+        	this.listeDate = new ArrayList<LocalDateTime>();
   
             Iterator<String> element = this._attlist.iterator();
             // first line unused
@@ -46,26 +46,26 @@ public class ParcoursCSV {
                 	String[] liste = infos[0].split(",");
               
                     String instant = liste[2];
-                    this.test.add(TEAMSDateTimeConverter.StringToLocalDateTime(instant));
+                    this.listeDate.add(TEAMSDateTimeConverter.StringToLocalDateTime(instant));
                 }
             }
-            for(int i=0; i<test.size(); i++) {
+            for(int i=0; i<listeDate.size(); i++) {
             	if(heureMin == null) {
-                	heureMin = this.test.get(i);
+                	heureMin = this.listeDate.get(i);
                 }
                 else {
-                	if(heureMin.isAfter(this.test.get(i))) {
-                		heureMin = this.test.get(i);
+                	if(heureMin.isAfter(this.listeDate.get(i))) {
+                		heureMin = this.listeDate.get(i);
                 	}
                 }
             }
-            for(int i=0; i<test.size(); i++) {
+            for(int i=0; i<listeDate.size(); i++) {
             	if(heureMax == null) {
-                	heureMax = this.test.get(i);
+                	heureMax = this.listeDate.get(i);
                 }
                 else {
-                	if(heureMax.isBefore(this.test.get(i))) {
-                		heureMax = this.test.get(i);
+                	if(heureMax.isBefore(this.listeDate.get(i))) {
+                		heureMax = this.listeDate.get(i);
                 	}
                 }
             }

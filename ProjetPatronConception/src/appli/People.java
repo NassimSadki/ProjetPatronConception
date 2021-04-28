@@ -124,13 +124,14 @@ public class People implements Comparable<People> {
             Duration delay = Duration.between(refTime, begin);
             double delayMinutes = Math.abs(delay.toSeconds()/60.);
             if (delayMinutes>0.0) {
-                html += "<img src=\"C:\\Users\\Nassim\\eclipse-workspace\\ProjetPatronConception\\off.png\" ";
+            	
+                html += "<img src=\"C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\off.png\" ";
                 html += "width=\"" + (100.*delayMinutes/durationMaxMinutes) + "%\" ";
                 html += "height=\"20\" title=\"absent(e) de " + refTime.toString();
                 html += " à  " + begin.toString() + " \"> \n";
             }
             // green bar for the current period
-            html += "<img src=\"C:\\Users\\Nassim\\eclipse-workspace\\ProjetPatronConception\\on.png\" ";
+            html += "<img src=\"C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\on.png\" ";
             html += "width=\"" + (100.*duration/durationMaxMinutes) + "%\" ";
             html += "height=\"20\" title=\"connecté(e) de " + begin.toString();
             html += " à  " + end.toString()+ "\"> \n";
@@ -141,7 +142,7 @@ public class People implements Comparable<People> {
         Duration delay = Duration.between(refTime, endTime);
         double delayMinutes = Math.abs(delay.toSeconds()/60.);
         if (delayMinutes>0.0) {
-            html += "<img src=\"C:\\Users\\Nassim\\eclipse-workspace\\ProjetPatronConception\\off.png\" ";
+            html += "<img src=\"C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\off.png\" ";
             html += "width=\"" + (100.*delayMinutes/durationMaxMinutes) + "%\" ";
             html += "height=\"20\" title=\"absent(e) de " + refTime.toString();
             html += " à  " + endTime.toString() + " \"> \n";

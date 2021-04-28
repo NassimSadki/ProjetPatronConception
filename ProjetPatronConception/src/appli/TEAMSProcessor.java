@@ -1,8 +1,10 @@
 package appli;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,7 +47,6 @@ public class TEAMSProcessor {
             // cut periods before start time and after end time
             filter.setStartAndStop(_start, _stop);
             
-            
             List<People> peopleByDuration = new ArrayList<>(filter.get_peopleList().values());
             // sort by duration
             if(sortBy == 0) {
@@ -74,7 +75,7 @@ public class TEAMSProcessor {
 
     public String toHTMLCode() {
         String html = "<!DOCTYPE html> \n <html lang=\"fr\"> \n <head> \n <meta charset=\"utf-8\"> ";
-        html += "<title> Attendance Report </title> \n <link rel=\"stylesheet\" media=\"all\" href=\"C:\\Users\\Nassim\\eclipse-workspace\\ProjetPatronConception\\visu.css\"> \n";
+        html += "<title> Attendance Report </title> \n <link rel=\"stylesheet\" media=\"all\" href=\"C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\visu.css\"> \n";
         html += "</head> \n <body> \n ";
         html += "<h1> Rapport de connexion </h1>\n" +
                 "\n" +
@@ -123,11 +124,21 @@ public class TEAMSProcessor {
     }
     
     public void toHTMLFile() {
-    	 try (var fr = new FileWriter(outputFile, StandardCharsets.UTF_8, true)) {
-    		 System.out.println("File created: " + outputFile.getName());
-             fr.write(toHTMLCode());
-         } catch (IOException e) {
-			e.printStackTrace();
+    	// first, we empty the file (useful if it already exists)
+    	PrintWriter pw;
+		try {
+			pw = new PrintWriter(outputFile.getPath());
+			pw.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+    	
+		// then, we write the new content
+    	try (var fr = new FileWriter(outputFile, StandardCharsets.UTF_8, true)) {
+    		System.out.println("File created: " + outputFile.getName());
+            fr.write(toHTMLCode());
+        } catch (IOException e) {
+        	e.printStackTrace();
 		}
     }
 }

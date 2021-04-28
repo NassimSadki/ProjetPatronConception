@@ -12,11 +12,22 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+    	startApplication(primaryStage);
+    }
+    
+    public void startApplication(Stage primaryStage) throws Exception{
     	Main.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("viewDesignPattern.fxml"));
         Main.primaryStage.setTitle("TEAMS Attendees List Converter");
         Main.primaryStage.setScene(new Scene(root, 450, 500));
         Main.primaryStage.show();
+    }
+    
+    public void resultat() throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("resultat.fxml"));
+    	Main.primaryStage.setTitle("Résultat");
+    	Main.primaryStage.setScene(new Scene(root, 300, 200));
+    	Main.primaryStage.show();
     }
 
     public static void main(String[] args) {
