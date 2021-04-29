@@ -21,6 +21,7 @@ public class ResultatController {
 		
     @FXML
     public void initialize() {
+    	// display ouputFile path
     	fichierCree.setText(MainController.outputFile.getPath());
     }
     

@@ -26,10 +26,11 @@ public class Main extends Application {
     public void resultat() throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/view/resultat.fxml"));
     	Main.primaryStage.setTitle("Résultat");
-    	Main.primaryStage.setScene(new Scene(root, 300, 200));
+    	Main.primaryStage.setScene(new Scene(root, 350, 200));
     	Main.primaryStage.show();
     }
 
+    // voir classe LancerApplication
     /*public static void main(String[] args) {
         launch(args);
     }*/

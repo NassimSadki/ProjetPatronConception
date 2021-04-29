@@ -99,6 +99,7 @@ public class People implements Comparable<People> {
         return this._name;
     }
     
+    // DESIGN PATTERN STRATEGY
     public void setVisibility(boolean visibilityId, boolean visibilityNom, boolean visibilityPlanning) {
     	this.visibilityId = visibilityId;
     	this.visibilityNom = visibilityNom;

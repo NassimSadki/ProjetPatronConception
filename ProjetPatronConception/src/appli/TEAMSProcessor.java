@@ -75,6 +75,7 @@ public class TEAMSProcessor {
         return _allpeople;
     }
 
+    // DESIGN PATTERN STRATEGY
     public String toHTMLCode(boolean visibilityId, boolean visibilityNom, boolean visibilityPlanning) {
     	String htmlVisibilityPlanning = 
     			"\n" +
@@ -97,7 +98,7 @@ public class TEAMSProcessor {
                 "<table>\n" +
                 "\t<tr>\n" +
                 "\t\t<th> Date : </th>\n" +
-                "\t\t<td> " + /*this._allpeople.iterator().next().getDate() +*/ " </td>\n" +
+                "\t\t<td> " + this._allpeople.iterator().next().getDate() + " </td>\n" +
                 "\t</tr>\n" +
                 "\t<tr>\n" +
                 "\t\t<th> Heure début : </th>\n" +

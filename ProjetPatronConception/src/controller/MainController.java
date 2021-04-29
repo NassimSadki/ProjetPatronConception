@@ -1,7 +1,10 @@
 package controller;
 
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -39,11 +42,47 @@ public class MainController {
 	private CheckBox sansNom;
 	@FXML
 	private CheckBox sansPlanning;
-
+	
 	static TEAMSProcessor teamsProcessor;
 	private File selectedFile;
 	private ParcoursCSV parcours;
 	static File outputFile;
+
+	@FXML
+	public void initialize() {
+
+		libelle.setPromptText("Objet de la réunion");
+		heureDebut.setPromptText("Heure de début au format HH:MM:SS");
+		heureFin.setPromptText("Heure de fin au format HH:MM:SS");
+
+		heureDebut.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+			if (!newValue) { // when focus lost
+				if (!heureDebut.getText().matches("^(?:[01]\\d|2[0123]):(?:[012345]\\d):(?:[012345]\\d)$")) {
+					// when it not matches the pattern (HH:MM:SS)
+					heureDebut.setText("");
+				}
+			}
+		});
+
+		heureFin.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+			if (!newValue) { // when focus lost
+				if (!heureFin.getText().matches("^(?:[01]\\d|2[0123]):(?:[012345]\\d):(?:[012345]\\d)$")) {
+					// when it not matches the pattern (HH:MM:SS)
+					heureFin.setText("");
+				}
+			}
+		});
+
+		heureDebut.textProperty().addListener(event -> {
+			heureDebut.pseudoClassStateChanged(PseudoClass.getPseudoClass("error"), !heureDebut.getText().isEmpty()
+					&& !heureDebut.getText().matches("^(?:[01]\\d|2[0123]):(?:[012345]\\d):(?:[012345]\\d)$"));
+		});
+
+		heureFin.textProperty().addListener(event -> {
+			heureFin.pseudoClassStateChanged(PseudoClass.getPseudoClass("error"), !heureFin.getText().isEmpty()
+					&& !heureFin.getText().matches("^(?:[01]\\d|2[0123]):(?:[012345]\\d):(?:[012345]\\d)$"));
+		});
+	}
 
 	public void infosFichier(ActionEvent actionEvent) {
 
@@ -71,11 +110,17 @@ public class MainController {
 
 	public void genererSortie() {
 
-		// process the file, and limit periods to given time interval
 		String heureMinEntree = heureDebut.getText();
 		String heureMaxEntree = heureFin.getText();
-		String test1 = parcours.getDate() + " à " + heureMinEntree;
-		String test2 = parcours.getDate() + " à " + heureMaxEntree;
+		String dateDebutFichier = "";
+		String dateFinFichier = "";
+		
+		// limit periods to given time interval
+		if (selectedFile != null) {
+			dateDebutFichier = parcours.getDate() + " à " + heureMinEntree;
+			dateFinFichier = parcours.getDate() + " à " + heureMaxEntree;
+		}
+
 		int sortBy = 0;
 		RadioButton selectedRadioButton = (RadioButton) triSortie.getSelectedToggle();
 		if (selectedRadioButton != null) {
@@ -85,7 +130,7 @@ public class MainController {
 				sortBy = 2;
 			}
 		}
-		
+
 		boolean visibilityId = true;
 		boolean visibilityNom = true;
 		boolean visibilityPlanning = true;
@@ -108,11 +153,62 @@ public class MainController {
 		// Show save file dialog
 		outputFile = fileChooser.showSaveDialog(Main.getPrimaryStage());
 
-		teamsProcessor = new TEAMSProcessor(selectedFile, outputFile, test1, test2, libelle.getText(), sortBy);
+		// Start processing only if inputs are valid
+		if (validation()) {
+			teamsProcessor = new TEAMSProcessor(selectedFile, outputFile, dateDebutFichier, dateFinFichier,
+					libelle.getText(), sortBy);
+			teamsProcessor.toHTMLFile(visibilityId, visibilityNom, visibilityPlanning);
+			
+			// Display result
+			ResultatController r = new ResultatController();
+			r.afficherResultat();
+		}
 
-		teamsProcessor.toHTMLFile(visibilityId, visibilityNom, visibilityPlanning);
-		ResultatController r = new ResultatController();
-		r.afficherResultat();
+	}
+
+	// display an error if a required input is empty
+	public boolean validation() {
+		if (selectedFile == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Saisie incorrecte");
+			alert.setHeaderText(null);
+			alert.setContentText("Veuillez sélectionner un fichier d'entrée");
+			alert.showAndWait();
+			return false;
+		}
+		if (outputFile == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Saisie incorrecte");
+			alert.setHeaderText(null);
+			alert.setContentText("Veuillez renseigner le fichier de sortie");
+			alert.showAndWait();
+			return false;
+		}
+		if (libelle.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Saisie incorrecte");
+			alert.setHeaderText(null);
+			alert.setContentText("Veuillez renseigner l'objet de la réunion");
+			alert.showAndWait();
+			return false;
+		}
+		if (heureDebut.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Saisie incorrecte");
+			alert.setHeaderText(null);
+			alert.setContentText("Veuillez renseigner l'heure de début");
+			alert.showAndWait();
+			return false;
+		}
+		if (heureFin.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Saisie incorrecte");
+			alert.setHeaderText(null);
+			alert.setContentText("Veuillez renseigner l'heure de fin");
+			alert.showAndWait();
+			return false;
+		}
+		return true;
 	}
 
 }
