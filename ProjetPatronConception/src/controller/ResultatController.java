@@ -1,5 +1,6 @@
-package appli;
+package controller;
 
+import appli.People;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;

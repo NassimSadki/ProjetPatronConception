@@ -14,7 +14,7 @@
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0"
 	prefWidth="445.0" xmlns="http://javafx.com/javafx/8.0.171"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="appli.MainController">
+	fx:controller="controller.MainController">
 	<children>
 		<TextField fx:id="libelle" layoutX="186.0" layoutY="177.0" />
 		<TextField fx:id="heureDebut" layoutX="186.0"
@@ -35,7 +35,7 @@
 			mnemonicParsing="false" text="par Nom" toggleGroup="$triSortie" />
 		<Label layoutX="251.0" layoutY="320.0" prefHeight="17.0"
 			prefWidth="112.0" text="Générer, en sortie : " />
-		<Button layoutX="33.0" layoutY="67.0" onAction="#sayHelloWorld"
+		<Button layoutX="33.0" layoutY="67.0" onAction="#infosFichier"
 			prefHeight="47.0" prefWidth="86.0"
 			text="Selectionner &#10;un fichier...&#10;" />
 		<Line endX="133.5" layoutX="286.0" layoutY="155.0"
@@ -52,9 +52,9 @@
 			strokeWidth="0.0" text="Heure max : " />
 		<Button layoutX="176.0" layoutY="450.0" mnemonicParsing="false"
 			onAction="#genererSortie" text="Générer la sortie" />
-		<CheckBox fx:id="sansId" layoutX="252.0" layoutY="338.0"
+		<CheckBox fx:id="sansNom" layoutX="252.0" layoutY="338.0"
 			mnemonicParsing="false" text="sans Nom" />
-		<CheckBox fx:id="sansNom" layoutX="252.0" layoutY="366.0"
+		<CheckBox fx:id="sansId" layoutX="252.0" layoutY="366.0"
 			mnemonicParsing="false" text="sans ID" />
 		<CheckBox fx:id="sansPlanning" layoutX="252.0"
 			layoutY="394.0" mnemonicParsing="false" text="sans Planning" />

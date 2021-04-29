@@ -15,6 +15,8 @@ public class TEAMSAttendanceListAnalyzer {
     private void processList() {
         if (this._attlist != null) {
             this._peopleList = new HashMap<>();
+            
+            // DESIGN PATTERN : ITERATOR
             Iterator<String> element = this._attlist.iterator();
             // first line unused
             element.next();
@@ -51,11 +53,15 @@ public class TEAMSAttendanceListAnalyzer {
 
     public void setStartAndStop(String start, String stop) {
         Collection<People> allpeople = _peopleList.values();
-        for (People person : allpeople) {
-            // IMPORTANT : set ending time before starting time, because it can't be possible
+        
+        // DESIGN PATTERN : ITERATOR
+        Iterator<People> parcoursPeople = allpeople.iterator();
+        while(parcoursPeople.hasNext()) {
+        	People person = parcoursPeople.next();
+        	// IMPORTANT : set ending time before starting time, because it can't be possible
             // to test if a period is before starting time if it has no ending time
-            person.forceEndTimeAt(stop);
-            person.forceStartTimeAt(start);
+        	person.forceEndTimeAt(stop);
+        	person.forceStartTimeAt(start);
         }
     }
 

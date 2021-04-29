@@ -33,6 +33,7 @@ public class ParcoursCSV {
         	
         	this.listeDate = new ArrayList<LocalDateTime>();
   
+            // DESIGN PATTERN : ITERATOR
             Iterator<String> element = this._attlist.iterator();
             // first line unused
             element.next();
@@ -49,26 +50,30 @@ public class ParcoursCSV {
                     this.listeDate.add(TEAMSDateTimeConverter.StringToLocalDateTime(instant));
                 }
             }
-            for(int i=0; i<listeDate.size(); i++) {
+            
+            // get min and max from saved hours
+            // DESIGN PATTERN : ITERATOR
+            Iterator<LocalDateTime> parcoursListeDate = this.listeDate.iterator();
+            while(parcoursListeDate.hasNext()) {
+            	LocalDateTime current = parcoursListeDate.next();
             	if(heureMin == null) {
-                	heureMin = this.listeDate.get(i);
+                	heureMin = current;
                 }
                 else {
-                	if(heureMin.isAfter(this.listeDate.get(i))) {
-                		heureMin = this.listeDate.get(i);
+                	if(heureMin.isAfter(current)) {
+                		heureMin = current;
                 	}
                 }
-            }
-            for(int i=0; i<listeDate.size(); i++) {
             	if(heureMax == null) {
-                	heureMax = this.listeDate.get(i);
+                	heureMax = current;
                 }
                 else {
-                	if(heureMax.isBefore(this.listeDate.get(i))) {
-                		heureMax = this.listeDate.get(i);
+                	if(heureMax.isBefore(current)) {
+                		heureMax = current;
                 	}
                 }
             }
+           
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             date = heureMin.format(formatter);
         }
@@ -85,4 +90,5 @@ public class ParcoursCSV {
 	public String getDate() {
 		return this.date;
 	}
+
 }

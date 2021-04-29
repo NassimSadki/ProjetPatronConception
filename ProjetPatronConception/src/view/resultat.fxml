@@ -12,7 +12,7 @@
 <Pane layoutX="-18.0" layoutY="-20.0" prefHeight="169.0"
 	prefWidth="376.0" xmlns:fx="http://javafx.com/fxml/1"
 	xmlns="http://javafx.com/javafx/8.0.171"
-	fx:controller="appli.ResultatController">
+	fx:controller="controller.ResultatController">
 	<children>
 		<Label layoutX="46.0" layoutY="59.0" text="Fichier créé :" />
 		<Text fx:id="fichierCree" layoutX="119.0" layoutY="72.0" strokeType="OUTSIDE"

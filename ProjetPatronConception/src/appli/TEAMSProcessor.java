@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class TEAMSProcessor {
@@ -61,6 +62,7 @@ public class TEAMSProcessor {
             	peopleByDuration.get(0).setSort(2);
             }
             
+            // DESIGN PATTERN STRATEGY
             Collections.sort(peopleByDuration);
             // init the people collection
             this._allpeople = peopleByDuration;//filter.get_peopleList().values();
@@ -73,9 +75,21 @@ public class TEAMSProcessor {
         return _allpeople;
     }
 
-    public String toHTMLCode() {
+    public String toHTMLCode(boolean visibilityId, boolean visibilityNom, boolean visibilityPlanning) {
+    	String htmlVisibilityPlanning = 
+    			"\n" +
+		        "<h2> Durées de connexion</h2>\n" +
+		        "\n" +
+		        "<p> Pour chaque personne ci-dessous, on retrouve son temps total de connexion sur la plage déclarée du cours, ainsi qu'un graphe qui indique les périodes de connexion (en vert) et d'absence de connexion (en blanc). En pointant la souris sur une zone, une bulle affiche les instants de début et de fin de période. \n" +
+		        "</p>";
+    	if(visibilityPlanning == false) {
+    		htmlVisibilityPlanning = 
+    			"\n" +
+    			"<h2> Liste des connectés :</h2>\n";
+    	}
+    	
         String html = "<!DOCTYPE html> \n <html lang=\"fr\"> \n <head> \n <meta charset=\"utf-8\"> ";
-        html += "<title> Attendance Report </title> \n <link rel=\"stylesheet\" media=\"all\" href=\"C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\visu.css\"> \n";
+        html += "<title> Attendance Report </title> \n <link rel=\"stylesheet\" media=\"all\" href=\""+System.getProperty("user.dir")+"\\visu.css\"> \n";
         html += "</head> \n <body> \n ";
         html += "<h1> Rapport de connexion </h1>\n" +
                 "\n" +
@@ -107,23 +121,22 @@ public class TEAMSProcessor {
                 "\t</tr>\n" +
                 "</table>\n" +
                 "</div>\n" +
-                "\n" +
-                "<h2> Durées de connexion</h2>\n" +
-                "\n" +
-                "<p> Pour chaque personne ci-dessous, on retrouve son temps total de connexion sur la plage déclarée du cours, ainsi qu'un graphe qui indique les périodes de connexion (en vert) et d'absence de connexion (en blanc). En pointant la souris sur une zone, une bulle affiche les instants de début et de fin de période. \n" +
-                "</p>";
+                htmlVisibilityPlanning;
         html += "<div id=\"blockpeople\"> ";
 
-        for (People people : this._allpeople) {
-
-            html += people.getHTMLCode();
+        // DESIGN PATTERN : ITERATOR
+        Iterator<People> parcoursPeople = this._allpeople.iterator();
+        while(parcoursPeople.hasNext()) {
+        	People people = parcoursPeople.next();
+        	people.setVisibility(visibilityId, visibilityNom, visibilityPlanning);
+        	html += people.getHTMLCode();
         }
 
 	    html += "</div> \n </body> \n </html>";
         return html;
     }
     
-    public void toHTMLFile() {
+    public void toHTMLFile(boolean visibilityId, boolean visibilityNom, boolean visibilityPlanning) {
     	// first, we empty the file (useful if it already exists)
     	PrintWriter pw;
 		try {
@@ -136,7 +149,7 @@ public class TEAMSProcessor {
 		// then, we write the new content
     	try (var fr = new FileWriter(outputFile, StandardCharsets.UTF_8, true)) {
     		System.out.println("File created: " + outputFile.getName());
-            fr.write(toHTMLCode());
+            fr.write(toHTMLCode(visibilityId, visibilityNom, visibilityPlanning));
         } catch (IOException e) {
         	e.printStackTrace();
 		}
